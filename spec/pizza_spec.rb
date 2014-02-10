@@ -2,12 +2,19 @@ require './pizza'
 require 'pry-debugger'
 
 describe Pizza do
+
+	it "exists" do
+		expect(Pizza).to be_a(Class)
+	end
+
 	describe '.initialize' do
+
 		it 'records all of the toppings' do
 			toppings = [
 				Topping.new('mushrooms', vegetarian: true),
 				Topping.new('pepperoni')
 			]
+			
 			pizza = Pizza.new(toppings)
 
 			expect(pizza.toppings).to eq(toppings)
@@ -19,24 +26,30 @@ describe Pizza do
 			expect(pizza.toppings.size).to eq(1)
 			expect(pizza.toppings.first.name).to eq('cheese')
 		end
-
-		it "can tell if it's vegetarian or not" do
-			mushroom = Pizza.new(['mushrooms', vegetarian: true])
-			pepperoni = Pizza.new(['pepperoni'])
-			toppings = [
-				Topping.new('mushrooms', vegetarian: true),
-				Topping.new('pepperoni')
-			]
-			pepperoni_and_mushroom = Pizza.new(toppings)
-
-			expect(mushroom.vegetarian?).to eq (true)
-			expect(pepperoni.vegetarian?).to eq (false)
-			expect(pepperoni_and_mushroom.vegetarian?).to eq (false)
-		end
 	end
 
-	it "exists" do
-		expect(Pizza).to be_a(Class)
+	describe 'vegetarian?' do
+
+		it "can determine if all the toppings are vegetarian" do
+			toppings1 = [
+				Topping.new('mushrooms', vegetarian: true),
+				Topping.new('green peppers', vegetarian: true),
+				Topping.new('onions', vegetarian: true)
+			]
+
+			toppings2 = [
+				Topping.new('mushrooms', vegetarian: true),
+				Topping.new('pepperoni'),
+				Topping.new('green peppers', vegetarian: true)
+			]
+
+
+			pizza1 = Pizza.new(toppings1)
+			pizza2 = Pizza.new(toppings2)
+
+			expect(pizza1.vegetarian?).to eq (true)
+			expect(pizza2.vegetarian?).to eq (false)
+		end
 	end
 end
 
