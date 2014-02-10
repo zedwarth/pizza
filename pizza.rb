@@ -1,3 +1,16 @@
+class Pizza
+	attr_accessor :toppings
+
+	def initialize( toppings = [ Topping.new('cheese', vegetarian: true) ] )
+		@toppings = toppings
+	end
+
+	def vegetarian?
+		@toppings.all? { |topping| topping.vegetarian == true }
+	end
+end
+
+
 class Topping
 	attr_accessor :name, :vegetarian
 
@@ -6,26 +19,10 @@ class Topping
 	# name - The string name of the topping.
 	#
 	# Returns a new Topping object.
+
 	def initialize(name, vegetarian: false)
 		@name = name
 		@vegetarian = vegetarian
 	end
 end
-
-class Pizza
-	attr_accessor :toppings
-
-	# Instantiate a new pizza.
-	#
-	# toppings - An array containing Topping objects.
-	#
-	# Returns a new Pizza object.
-	
-	@@cheese = Topping.new('cheese', vegetarian: true)
-
-	def initialize(toppings = [@@cheese])
-		@toppings = toppings
-	end
-end
-
 
