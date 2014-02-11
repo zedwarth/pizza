@@ -64,6 +64,32 @@ describe Pizza do
 			expect(pizza.toppings.include?(bacon)).to eq(true)
 		end
 	end
+
+	describe 'deliver!' do
+		it 'marks a delivery time' do
+			pizza = Pizza.new([Topping.new("bacon")])
+
+			# Mark a pizza for delivery
+			now = Time.now
+			pizza.deliver!(now)
+
+			# Pizza delivery time is 30 from now.
+			expect(pizza.delivery_time).to eq(now + 60 * 30)
+		end
+
+		it "sets a boolean value for whether or not it's late" do
+			pizza = Pizza.new([Topping.new("bacon")])
+
+			expect(pizza.late?).to eq(false)
+
+			# Set now to 30 minutes in the past
+			now = Time.now - 60 * 30
+			
+			pizza.deliever!(now)
+
+			expect(pizza.late?).to eq(true)
+		end
+	end
 end
 
 describe Topping do
