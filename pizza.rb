@@ -17,6 +17,14 @@ class Pizza
 	def deliver!(now = Time.now)
 		@delivery_time = now + 60 * 30
 	end
+
+	def late?
+		if @delivery_time == nil || @delivery_time >= Time.now
+			false
+		else
+			true
+		end
+	end
 end
 
 

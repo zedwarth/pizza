@@ -77,16 +77,17 @@ describe Pizza do
 			expect(pizza.delivery_time).to eq(now + 60 * 30)
 		end
 
-		it "sets a boolean value for whether or not it's late" do
+		it "returns a boolean value for whether or not it's late" do
 			pizza = Pizza.new([Topping.new("bacon")])
 
 			expect(pizza.late?).to eq(false)
 
-			# Set now to 30 minutes in the past
-			now = Time.now - 60 * 30
+			now = Time.now
+			# Set now to 31 minutes in the past
+			before = now - (60 * 31)
 			
-			pizza.deliever!(now)
-
+			pizza.deliver!(before)
+			
 			expect(pizza.late?).to eq(true)
 		end
 	end
